@@ -3,7 +3,7 @@ import time
 import pytest
 
 from pages.main_page import MainPage
-# from pages.login_page import LoginPage
+from pages.login_page import LoginPage
 
 
 main_link = "http://selenium1py.pythonanywhere.com/"
