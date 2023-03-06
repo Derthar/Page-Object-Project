@@ -1,19 +1,12 @@
 import time
-
 import pytest
-
+# from pages.locators import MainPageLocators
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 
 
 main_link = "http://selenium1py.pythonanywhere.com/"
-login_page_link = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
-
-
-# def go_to_login_page(browser):
-#     browser.get(link)
-#     login_link = browser.find_element(By.CSS_SELECTOR, "#login_link")
-#     login_link.click()
+# login_page_link = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
 
 
 @pytest.mark.usefixtures

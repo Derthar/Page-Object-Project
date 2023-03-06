@@ -2,6 +2,7 @@ from selenium.common import NoSuchElementException, NoAlertPresentException, Tim
 import math
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
+from .locators import BasePageLocators
 
 
 # Базовый класс страницы
@@ -9,10 +10,19 @@ class BasePage:
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
-        self.browser.implicitly_wait(timeout)
+        # self.browser.implicitly_wait(timeout)
 
     def open(self):
         self.browser.get(self.url)
+
+        # Проверка наличия ссылки логина
+    def should_be_login_link(self):
+        assert self.browser.find_element(*BasePageLocators.LOGIN_LINK), "Login link is not presented!"
+        # * нужна для распаковки кортежа
+
+    # Переход на страницу логина
+    def go_to_login_page(self):
+        self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
 
     # Проверка присутствия элемента на странице
     def is_present(self, how, what):
@@ -23,6 +33,7 @@ class BasePage:
             return False
         return True
 
+    # Решение задачки и ввод ответа
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -37,6 +48,7 @@ class BasePage:
         except NoAlertPresentException:
             print("No second alert presented")
 
+    # Элемент не должен присутствовать на странице
     def is_not_element_present(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout).until(ec.presence_of_element_located((how, what)))
@@ -44,19 +56,18 @@ class BasePage:
             return True
         return False
 
+    # Элемент должен исчезнуть со страницы в течении timeout
     def is_disappeared(self, how, what, timeout=4):
         try:
-            WebDriverWait(self.browser, timeout, 1, TimeoutException).\
-                until_not(ec.presence_of_element_located((how, what)))
+            WebDriverWait(self.browser, timeout, 1).until_not(ec.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
         return True
 
+    # Элемент должен появиться со страницы в течении timeout
     def is_appeared(self, how, what, timeout=4):
         try:
-            WebDriverWait(self.browser, timeout, 1, TimeoutException).\
-                until(ec.presence_of_element_located((how, what)))
+            WebDriverWait(self.browser, timeout, 1).until(ec.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
         return True
-
