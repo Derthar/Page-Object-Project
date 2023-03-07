@@ -1,8 +1,6 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
 
-# link = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
-
 
 # Класс страницы логина/регистрации
 class LoginPage(BasePage):

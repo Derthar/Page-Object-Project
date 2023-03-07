@@ -1,14 +1,11 @@
 import time
 import pytest
-from pages.locators import MainPageLocators
-from pages.locators import BasketPageLocators
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.basket_page import BasketPage
 
 
 main_link = "http://selenium1py.pythonanywhere.com/"
-# login_page_link = 'http://selenium1py.pythonanywhere.com/ru/accounts/login/'
 
 
 @pytest.mark.login_guest
