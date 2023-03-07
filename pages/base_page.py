@@ -24,6 +24,10 @@ class BasePage:
     def go_to_login_page(self):
         self.browser.find_element(*BasePageLocators.LOGIN_LINK).click()
 
+    # Переход в корзину
+    def go_to_basket_page(self):
+        self.browser.find_element(*BasePageLocators.BASKET_LINK).click()
+
     # Проверка присутствия элемента на странице
     def is_present(self, how, what):
         try:
