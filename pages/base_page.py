@@ -7,15 +7,14 @@ from .locators import BasePageLocators
 
 # Базовый класс страницы
 class BasePage:
-    def __init__(self, browser, url, timeout=10):
+    def __init__(self, browser, url):
         self.browser = browser
         self.url = url
-        # self.browser.implicitly_wait(timeout)
 
     def open(self):
         self.browser.get(self.url)
 
-        # Проверка наличия ссылки логина
+    # Проверка наличия ссылки логина
     def should_be_login_link(self):
         assert self.browser.find_element(*BasePageLocators.LOGIN_LINK), "Login link is not presented!"
         # * нужна для распаковки кортежа
@@ -75,3 +74,7 @@ class BasePage:
         except TimeoutException:
             return False
         return True
+
+    def should_be_authorized_user(self):
+        assert self.is_present(*BasePageLocators.USER_ICON), "User icon isn't presented,"\
+                                                                             "probably unauthorised user"
