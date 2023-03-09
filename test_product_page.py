@@ -29,13 +29,13 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page = ProductPage(browser, main_link)
     page.open()
     page.browser.find_element(*MainPageLocators.ADD_TO_BASKET).click()
-    assert page.is_not_element_present(*MainPageLocators.SUCCESS_MESSAGE)
+    page.should_not_be_succes_message()
 
 
 def test_guest_cant_see_success_message(browser):
     page = ProductPage(browser, main_link)
     page.open()
-    assert page.is_not_element_present(*MainPageLocators.SUCCESS_MESSAGE)
+    page.should_not_be_succes_message()
 
 
 @pytest.mark.xfail
@@ -43,7 +43,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page = ProductPage(browser, main_link)
     page.open()
     page.browser.find_element(*MainPageLocators.ADD_TO_BASKET).click()
-    assert page.is_disappeared(*MainPageLocators.SUCCESS_MESSAGE)
+    page.success_message_should_dissapear()
 
 
 def test_guest_should_see_login_link_on_product_page(browser):
@@ -84,7 +84,7 @@ class TestUserAddToBasketFromProductPage:
     def test_user_cant_see_success_message(self, browser):
         page = ProductPage(browser, main_link)
         page.open()
-        assert page.is_not_element_present(*MainPageLocators.SUCCESS_MESSAGE)
+        page.should_not_be_succes_message()
 
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
